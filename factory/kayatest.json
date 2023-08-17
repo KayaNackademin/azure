@@ -1,0 +1,9 @@
+{
+	"name": "kayatest",
+	"location": "westeurope",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "769208ed-b690-4482-8b40-c311bbdf1998",
+		"tenantId": "20e9e658-d844-4d9c-a0b7-36389d71736f"
+	}
+}
