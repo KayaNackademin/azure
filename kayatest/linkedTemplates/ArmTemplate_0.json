@@ -17,19 +17,6 @@
 	},
 	"resources": [
 		{
-			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase1')]",
-			"type": "Microsoft.DataFactory/factories/linkedServices",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"annotations": [],
-				"type": "AzureSqlDatabase",
-				"typeProperties": {
-					"connectionString": "[parameters('AzureSqlDatabase1_connectionString')]"
-				}
-			},
-			"dependsOn": []
-		},
-		{
 			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
@@ -43,6 +30,22 @@
 						"typeProperties": {
 							"waitTimeInSeconds": 1
 						}
+					},
+					{
+						"name": "Wait2",
+						"type": "Wait",
+						"dependsOn": [
+							{
+								"activity": "Wait1",
+								"dependencyConditions": [
+									"Succeeded"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"waitTimeInSeconds": 1
+						}
 					}
 				],
 				"policy": {
@@ -50,6 +53,19 @@
 					"cancelAfter": {}
 				},
 				"annotations": []
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/AzureSqlDatabase1')]",
+			"type": "Microsoft.DataFactory/factories/linkedServices",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"annotations": [],
+				"type": "AzureSqlDatabase",
+				"typeProperties": {
+					"connectionString": "[parameters('AzureSqlDatabase1_connectionString')]"
+				}
 			},
 			"dependsOn": []
 		}
